@@ -11,12 +11,17 @@
     </Transition>
     <Transition>
         <div
-            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 -translate-1/2 p-10 z-2 w-max max-w-10/12 backdrop-brightness-125 select-none"
+            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 -translate-1/2 p-10 z-2 w-max max-w-full backdrop-brightness-110 select-none"
             v-show="enable"
         >
             <div class="flex m-auto flex-wrap">
                 <div
-                    class="w-min px-4 relative text-5xl font-thin after:border-r-1 after:h-6 after:w-full after:absolute after:top-1/2 after:left-1/2 after:-translate-1/2 last:after:border-r-0"
+                    :class="[
+                        'w-min px-4 relative text-5xl font-thin after:border-gray-500 after:border-r-1 after:h-6 after:w-full after:absolute after:top-1/2 after:left-1/2 after:-translate-1/2 last:after:border-r-0',
+                        option === selected_value
+                            ? 'text-gray-600'
+                            : 'text-gray-400',
+                    ]"
                     v-for="option in options"
                     @click="selected_value = option"
                 >
@@ -26,7 +31,7 @@
             <div class="m-auto">
                 <span class="mt-3 border-b-1">
                     <input
-                        class="text-center text-5xl font-thin w-[2em]"
+                        class="text-center text-5xl font-thin w-[2em] outline-0"
                         inputmode="numeric"
                         v-model="selected_value"
                         @input="
