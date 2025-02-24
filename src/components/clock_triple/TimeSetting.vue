@@ -1,11 +1,14 @@
 <template>
-    <div class="flex gap-10">
-        <span @click="initial_time_select = true" class="select-none">
-            <text class="block text-2xl text-gray-500">每方分鐘數</text>
+    <div class="flex gap-10 font-light">
+        <span
+            @click="initial_time_select = true"
+            class="select-none "
+        >
+            <text class="block text-2xl text-gray-800">每方分鐘數</text>
             <span class="border-b-1 w-min mr-0.5">
                 <text class="text-6xl">{{ time_setting.initial_time }}</text>
             </span>
-            <text class="text-2xl font-light">分鐘</text>
+            <text class="text-2xl">分鐘</text>
         </span>
         <TimeSelect
             :options="[0, 3, 5, 10, 15, 20, 30, 60]"
@@ -15,12 +18,15 @@
             v-model:enable="initial_time_select"
         >
         </TimeSelect>
-        <span @click="() => (byoyomi_select = true)" class="select-none">
-            <text class="block text-2xl text-gray-500">讀秒</text>
+        <span
+            @click="() => (byoyomi_select = true)"
+            class="select-none "
+        >
+            <text class="block text-2xl text-gray-800 ">讀秒</text>
             <span class="border-b-1 w-min mr-0.5">
                 <text class="text-6xl">{{ time_setting.byoyomi }}</text>
             </span>
-            <text class="text-2xl font-light">秒</text>
+            <text class="text-2xl ">秒</text>
         </span>
         <TimeSelect
             :options="[0, 10, 15, 20, 30, 40, 50, 60]"
