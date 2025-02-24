@@ -15,7 +15,7 @@
             </span>
             <text class="text-2xl font-light">秒</text>
         </span>
-        <TimeSelect :options="[0, 10, 15, 20, 30, 40, 50, 60]" unit="秒" v-if="1" :callback="value => time_setting.initial_time = 10"></TimeSelect>
+        <TimeSelect :options="[0, 10, 15, 20, 30, 40, 50, 60]" unit="秒" v-if="1" v-model="time_setting.byoyomi"></TimeSelect>
     </div>
 
 </template>
