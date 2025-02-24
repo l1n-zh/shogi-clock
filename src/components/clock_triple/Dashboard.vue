@@ -5,7 +5,7 @@
 
 <script setup>
 import TimeSetting from "./TimeSetting.vue";
-import { ref, reactive, unref } from "vue";
+import { ref } from "vue";
 
 const time_setting = ref({
     initial_time: 10,
