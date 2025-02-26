@@ -11,11 +11,11 @@
     </Transition>
     <Transition>
         <div
-            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 -translate-1/2 p-10 z-2 w-max max-w-full backdrop-brightness-110 select-none"
+            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 backdrop-brightness-110 -translate-1/2 p-10 z-2 w-max max-w-full select-none"
             v-show="enable"
         >
-            <div class="flex m-auto flex-wrap">
-                <div
+            <ul class="flex m-auto flex-wrap">
+                <li
                     :class="[
                         'w-min px-4 relative text-5xl font-thin after:border-gray-500 after:border-r-1 after:h-6 after:w-full after:absolute after:top-1/2 after:left-1/2 after:-translate-1/2 last:after:border-r-0',
                         option === selected_value
@@ -26,8 +26,8 @@
                     @click="selected_value = option"
                 >
                     {{ option }}
-                </div>
-            </div>
+                </li>
+            </ul>
             <div class="m-auto">
                 <span class="mt-3 border-b-1">
                     <input
@@ -43,9 +43,7 @@
                         "
                     />
                 </span>
-                <Transition>
                     <text class="font-light text-2xl">{{ unit }}</text>
-                </Transition>
             </div>
         </div>
     </Transition>
