@@ -1,7 +1,7 @@
 <template>
     <Transition>
         <div
-            class="absolute z-1 w-full h-full backdrop-blur-xs"
+            class="absolute z-2 w-full h-full top-0 left-0 backdrop-blur-xs "
             @click="
                 enable = false;
                 result = selected_value;
