@@ -1,5 +1,5 @@
 <template>
-    <span class="w-25 relative select-none">
+    <span class="w-10 sm:w-25 relative select-none">
         <hr
             :class="[
                 'w-full transition-colors duration-300 delay-400 top-1/2 absolute -z-1',
@@ -23,7 +23,7 @@
                 @click="connected = false"
             >
                 <text
-                    class="absolute w-max text-2xl top-0 -translate-x-1/2 -translate-y-[130%]"
+                    class="absolute sm:w-max w-min sm:leading-normal leading-none text-2xl top-0 -translate-x-1/2 -translate-y-[130%]"
                     >切斷</text
                 >
             </div>

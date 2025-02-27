@@ -8,10 +8,10 @@
         >
             <text class="text-4xl font-normal"> 左 </text>
             <br />
-            <text class="text-2xl">按鍵</text>
+            <text class="text-2xl sm:leading-normal leading-none">按鍵</text>
         </Card>
         <ConnectionBreaker v-model="connected"></ConnectionBreaker>
-        <Card class="text-6xl"> 123456 </Card>
+        <Card class="sm:text-6xl text-5xl"> 123456 </Card>
         <ConnectionBreaker v-model="connected"></ConnectionBreaker>
         <Card
             :class="[
@@ -21,7 +21,7 @@
         >
             <text class="text-4xl font-normal"> 右 </text>
             <br />
-            <text class="text-2xl">按鍵</text>
+            <text class="text-2xl sm:leading-normal leading-none">按鍵</text>
         </Card>
     </div>
     <button @click="connected = true" class="border-1 absolute">

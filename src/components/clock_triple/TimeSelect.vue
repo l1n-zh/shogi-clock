@@ -11,7 +11,7 @@
     </Transition>
     <Transition>
         <div
-            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 backdrop-brightness-110 -translate-1/2 p-10 z-2 w-max max-w-full select-none"
+            class="flex flex-col absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 backdrop-brightness-110 -translate-1/2 p-10 z-2 w-max max-w-11/12 select-none"
             v-show="enable"
         >
             <ul class="flex m-auto flex-wrap">
