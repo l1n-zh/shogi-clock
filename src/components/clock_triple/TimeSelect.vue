@@ -1,7 +1,7 @@
 <template>
     <Transition>
         <div
-            class="absolute z-2 w-full h-full top-0 left-0 backdrop-blur-xs "
+            class="absolute z-2 w-full h-full top-0 left-0 backdrop-blur-xs"
             @click="
                 enable = false;
                 result = selected_value;
@@ -43,7 +43,7 @@
                         "
                     />
                 </span>
-                    <text class="font-light text-2xl">{{ unit }}</text>
+                <text class="font-light text-2xl">{{ unit }}</text>
             </div>
         </div>
     </Transition>
