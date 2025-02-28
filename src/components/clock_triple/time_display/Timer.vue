@@ -16,7 +16,7 @@
                             alarm ? 'var(--color-red-500)' : 'white'
                         } var(--degree) 360deg)`,
                         '--degree': `${degree}deg`,
-                        transition: '--degree 1s linear',
+                        transition: `--degree ${UI_UPDATE_INTERVAL}ms linear`,
                     }"
                 ></div>
             </div>
@@ -43,8 +43,9 @@
                     {{ timeout ? "時間切" : time_string(remaining_time) }}
                     <text
                         class="absolute text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 translate-y-full bottom-0 left-1/2 -translate-x-1/2"
+                        v-if="!is_byoyomi_started"
                     >
-                        {{ is_byoyomi_started ? "" : time_string(byoyomi) }}
+                        {{ time_string(timer.byoyomi) }}
                     </text>
                 </div>
             </div>
@@ -54,38 +55,47 @@
 
 <script setup>
 import { ref, watchEffect } from "vue";
+import { CountDownTimer, UI_UPDATE_INTERVAL } from "../../timer";
 
-const props = defineProps({
-    remaining_time: Number,
-    initial_time: Number,
-    byoyomi: Number,
-    is_byoyomi_started: Boolean,
-    is_running: Boolean,
+const { timer } = defineProps({
+    timer: CountDownTimer,
 });
 
-const { initial_time, byoyomi } = props;
 const alarm = ref(false);
-const timeout = ref(true);
+const timeout = ref(false);
 const degree = ref(0);
+const is_byoyomi_started = ref(false);
+const remaining_time = ref(timer.remaining_time);
 
-watchEffect(() => {
-    const { remaining_time, is_byoyomi_started, is_running } = props;
-    alarm.value =
-        (is_byoyomi_started && remaining_time <= 10) ||
-        (byoyomi == 0 && remaining_time <= 60);
+timer.on_byoyomi_start = () => {
+    is_byoyomi_started.value = true;
+};
+
+timer.callback = () => {
+    remaining_time.value = timer.remaining_time;
+    alarm.value = timer.is_byoyomi_started && timer.remaining_time <= 10000;
     degree.value =
         (1 -
-            (remaining_time - (is_running ? 1 : 0)) /
-                (is_byoyomi_started ? byoyomi : initial_time)) *
+            (timer.remaining_time -
+                (timer.is_running ? UI_UPDATE_INTERVAL : 0)) /
+                timer.total_time) *
         360;
-    timeout.value = is_byoyomi_started && remaining_time <= 0;
-});
+};
 
-const time_string = (seconds) => {
-    if (seconds < 10) return String(seconds);
-    if (seconds < 60) return String(seconds).padStart(2, "0");
-    return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(
-        seconds % 60
+timer.on_timeout = () => {
+    timeout.value = true;
+};
+
+const time_string = (ms) => {
+    if (ms < 60000) {
+        if (alarm.value) {
+            return `${Math.floor(ms / 1000)}.${Math.floor((ms % 1000) / 100)}`;
+        }
+        return String(Math.ceil(ms / 1000));
+    }
+
+    return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(
+        s % 60
     ).padStart(2, "0")}`;
 };
 </script>
