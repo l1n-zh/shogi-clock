@@ -60,7 +60,7 @@ const props = defineProps({
     initial_time: Number,
     byoyomi: Number,
     is_byoyomi_started: Boolean,
-    activated: Boolean,
+    is_running: Boolean,
 });
 
 const { initial_time, byoyomi } = props;
@@ -69,13 +69,13 @@ const timeout = ref(true);
 const degree = ref(0);
 
 watchEffect(() => {
-    const { remaining_time, is_byoyomi_started, activated } = props;
+    const { remaining_time, is_byoyomi_started, is_running } = props;
     alarm.value =
         (is_byoyomi_started && remaining_time <= 10) ||
         (byoyomi == 0 && remaining_time <= 60);
     degree.value =
         (1 -
-            (remaining_time - (activated ? 1 : 0)) /
+            (remaining_time - (is_running ? 1 : 0)) /
                 (is_byoyomi_started ? byoyomi : initial_time)) *
         360;
     timeout.value = is_byoyomi_started && remaining_time <= 0;
