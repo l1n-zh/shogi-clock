@@ -17,6 +17,7 @@ class Timer {
     }
 
     start() {
+        if (this.interval) return;
         this.interval = setInterval(() => {
             this.remaining_time -= TIMER_TICK_INTERVAL;
             if (this.remaining_time <= 0) {
@@ -31,68 +32,83 @@ class Timer {
 
     stop() {
         clearInterval(this.interval);
+        this.interval = null;
+    }
+}
+
+const Event = {
+    START: "start",
+    STOP: "stop",
+    UPDATE: "update",
+    TIMEOUT: "timeout",
+    BYOYOMI_START: "byoyomi_start",
+};
+
+function add_listener(event, callback) {
+    this.listeners[event].push(callback);
+}
+
+function emit(event) {
+    this.listeners[event].forEach((callback) => callback());
+}
+
+function ui_update_callback(timer) {
+    if (timer.tick_count % UI_UPDATE_RATIO === 0) {
+        this.remaining_time = timer.remaining_time;
+        this.total_time = timer.total_time;
+        this.emit(Event.UPDATE);
     }
 }
 
 class CountDownTimer {
-    constructor({
-        initial_time = 0,
-        byoyomi = 0,
-        callback = () => {},
-        on_timeout = () => {},
-        on_byoyomi_start = () => {},
-        on_start = () => {},
-        on_stop = () => {},
-    }) {
+    constructor({ initial_time = 0, byoyomi = 0 }) {
         this.initial_time = initial_time;
         this.byoyomi = byoyomi;
 
-        this.callback = callback;
-        this.on_timeout = on_timeout;
-        this.on_byoyomi_start = on_byoyomi_start;
         this.is_byoyomi_started = false;
-        this.on_start = on_start;
-        this.on_stop = on_stop;
 
         this.remaining_time = initial_time;
         this.total_time = initial_time;
         this.is_running = false;
 
-        const ui_update_callback = (timer) => {
-            if (timer.tick_count % UI_UPDATE_RATIO === 0) {
-                this.remaining_time = timer.remaining_time;
-                this.total_time = timer.total_time;
-                this.callback();
-            }
+        this.listeners = {
+            [Event.START]: [],
+            [Event.STOP]: [],
+            [Event.UPDATE]: [],
+            [Event.TIMEOUT]: [],
+            [Event.BYOYOMI_START]: [],
         };
+
+        this.emit = emit.bind(this);
+        this.add_listener = add_listener.bind(this);
 
         this.timer = new Timer({
             total_time: initial_time,
-            callback: ui_update_callback,
+            callback: ui_update_callback.bind(this),
             on_timeout: () => {
                 this.timer = new Timer({
                     total_time: byoyomi,
-                    callback: ui_update_callback,
+                    callback: ui_update_callback.bind(this),
                     on_timeout: () => {
-                        this.on_timeout();
+                        this.emit(Event.TIMEOUT);
                     },
                 });
                 this.timer.start();
                 this.is_byoyomi_started = true;
-                this.on_byoyomi_start();
+                this.emit(Event.BYOYOMI_START);
             },
         });
     }
 
     start() {
-        if(this.is_running) return;
+        if (this.is_running) return;
         this.timer.start();
         this.is_running = true;
-        this.on_start();
+        this.emit(Event.START);
     }
 
     stop() {
-        if(!this.is_running) return;
+        if (!this.is_running) return;
         this.timer.stop();
         this.is_running = false;
         if (this.is_byoyomi_started) {
@@ -100,58 +116,55 @@ class CountDownTimer {
             this.remaining_time = this.byoyomi;
             this.callback();
         }
-        this.on_stop();
+        this.emit(Event.STOP);
     }
 }
 
 class IncrementalTimer {
-    constructor({
-        initial_time = 0,
-        increment = 0,
-        callback = () => {},
-        on_timeout = () => {},
-        on_start = () => {},
-        on_stop = () => {},
-    }) {
+    constructor({ initial_time = 0, increment = 0 }) {
         this.initial_time = initial_time;
         this.increment = increment;
 
         this.callback = callback;
-        this.on_timeout = on_timeout;
-        this.on_start = on_start;
-        this.on_stop = on_stop;
 
         this.remaining_time = initial_time;
         this.total_time = initial_time;
-
-        const ui_update_callback = (timer) => {
-            if (timer.tick_count % UI_UPDATE_RATIO === 0) {
-                this.remaining_time = timer.remaining_time;
-                this.total_time = timer.total_time;
-                this.callback();
-            }
-        };
+        this.is_running = false;
 
         this.timer = new Timer({
             total_time: initial_time,
-            callback: ui_update_callback,
+            callback: ui_update_callback.bind(this),
             on_timeout: () => {
-                this.on_timeout();
+                this.emit(Event.TIMEOUT);
             },
         });
+        this.emit = emit.bind(this);
+        this.add_listener = add_listener.bind(this);
+
+        this.listeners = {
+            [Event.START]: [],
+            [Event.STOP]: [],
+            [Event.UPDATE]: [],
+            [Event.TIMEOUT]: [],
+        };
     }
 
     start() {
+        if (this.is_running) return;
         this.timer.start();
-        this.on_start();
+        this.is_running = true;
+        this.emit(Event.START);
     }
 
     stop() {
+        if (!this.is_running) return;
         this.timer.stop();
+        this.is_running = false;
         this.timer.remaining_time += this.increment;
-        this.timer.total_time += this.increment;
-        this.on_stop();
+        this.total_time = this.timer.remaining_time;
+        this.emit(Event.STOP);
+        this.emit(Event.UPDATE);
     }
 }
 
-export { CountDownTimer, IncrementalTimer, UI_UPDATE_INTERVAL };
+export { CountDownTimer, IncrementalTimer, UI_UPDATE_INTERVAL, Event };
