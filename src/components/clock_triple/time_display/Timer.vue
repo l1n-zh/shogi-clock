@@ -13,7 +13,9 @@
                     class="w-full h-full z-0 drop-shadow-lg transition-all"
                     :style="{
                         background: `conic-gradient(transparent 0deg var(--degree), ${
-                            alarm && is_running ? 'var(--color-red-500)' : 'white'
+                            alarm && is_running
+                                ? 'var(--color-red-500)'
+                                : 'white'
                         } var(--degree) 360deg)`,
                         '--degree': `${degree}deg`,
                         transition: `--degree ${UI_UPDATE_INTERVAL}ms linear`,
@@ -44,7 +46,7 @@
                 </div>
 
                 <div
-                    class="text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 self-start "
+                    class="text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 self-start"
                     v-show="!timeout"
                 >
                     <slot></slot>
@@ -106,16 +108,15 @@ timer.broadcast.add_listener(Event.START, () => {
  * @param {number} ms
  */
 const time_string = (ms) => {
-    if (ms < 60000) {
+    const s = Math.floor(ms / 1000);
+    if (s < 60) {
         if (alarm) {
-            return `${Math.floor(ms / 1000)}.${Math.floor((ms % 1000) / 100)}`;
+            return `${s}.${Math.floor((ms % 1000) / 100)}`;
         }
-        return String(Math.ceil(ms / 1000));
+        return String(s);
     }
 
-    return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(
-        s % 60
-    ).padStart(2, "0")}`;
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 };
 </script>
 
