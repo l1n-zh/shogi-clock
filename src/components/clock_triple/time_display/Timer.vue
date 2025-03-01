@@ -41,12 +41,11 @@
                     ]"
                 >
                     {{ timeout ? "時間切" : time_string(remaining_time) }}
-                    <text
+                    <div
                         class="absolute text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 translate-y-full bottom-0 left-1/2 -translate-x-1/2"
-                        v-if="!is_byoyomi_started"
                     >
-                        {{ time_string(timer.byoyomi) }}
-                    </text>
+                        <slot></slot>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,41 +53,50 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
-import { CountDownTimer, UI_UPDATE_INTERVAL } from "../../timer";
+import { ref } from "vue";
+import {
+    CountDownTimer,
+    IncrementalTimer,
+    UI_UPDATE_INTERVAL,
+    Event,
+} from "../../timer";
 
-const { timer } = defineProps({
-    timer: CountDownTimer,
+/**
+ * @type {{
+ *     timer: (CountDownTimer | IncrementalTimer);
+ *     alarm: boolean;
+ * }}
+ */
+const { timer, alarm } = defineProps({
+    timer: { type: Object },
+    alarm: { type: Boolean, default: false },
 });
 
-const alarm = ref(false);
 const timeout = ref(false);
 const degree = ref(0);
-const is_byoyomi_started = ref(false);
+
 const remaining_time = ref(timer.remaining_time);
 
-timer.on_byoyomi_start = () => {
-    is_byoyomi_started.value = true;
-};
-
-timer.callback = () => {
+timer.broadcast.add_listener(Event.UPDATE, () => {
     remaining_time.value = timer.remaining_time;
-    alarm.value = timer.is_byoyomi_started && timer.remaining_time <= 10000;
     degree.value =
         (1 -
             (timer.remaining_time -
                 (timer.is_running ? UI_UPDATE_INTERVAL : 0)) /
                 timer.total_time) *
         360;
-};
+});
 
-timer.on_timeout = () => {
+timer.broadcast.add_listener(Event.TIMEOUT, () => {
     timeout.value = true;
-};
+});
 
+/**
+ * @param {number} ms
+ */
 const time_string = (ms) => {
     if (ms < 60000) {
-        if (alarm.value) {
+        if (alarm) {
             return `${Math.floor(ms / 1000)}.${Math.floor((ms % 1000) / 100)}`;
         }
         return String(Math.ceil(ms / 1000));
