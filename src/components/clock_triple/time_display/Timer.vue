@@ -13,7 +13,7 @@
                     class="w-full h-full z-0 drop-shadow-lg transition-all"
                     :style="{
                         background: `conic-gradient(transparent 0deg var(--degree), ${
-                            alarm ? 'var(--color-red-500)' : 'white'
+                            alarm && is_running ? 'var(--color-red-500)' : 'white'
                         } var(--degree) 360deg)`,
                         '--degree': `${degree}deg`,
                         transition: `--degree ${UI_UPDATE_INTERVAL}ms linear`,
@@ -45,6 +45,7 @@
 
                 <div
                     class="text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 self-start "
+                    v-show="!timeout"
                 >
                     <slot></slot>
                 </div>
@@ -54,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { isReactive, ref } from "vue";
 import {
     CountDownTimer,
     IncrementalTimer,
@@ -75,6 +76,7 @@ const { timer, alarm } = defineProps({
 
 const timeout = ref(false);
 const degree = ref(0);
+const is_running = ref(timer.is_running);
 
 const remaining_time = ref(timer.remaining_time);
 
@@ -90,6 +92,14 @@ timer.broadcast.add_listener(Event.UPDATE, () => {
 
 timer.broadcast.add_listener(Event.TIMEOUT, () => {
     timeout.value = true;
+});
+
+timer.broadcast.add_listener(Event.STOP, () => {
+    is_running.value = false;
+});
+
+timer.broadcast.add_listener(Event.START, () => {
+    is_running.value = true;
 });
 
 /**

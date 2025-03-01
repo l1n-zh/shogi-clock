@@ -1,8 +1,8 @@
 <template>
     <Timer :timer="timer" :alarm="alarm">
-        <Transition>
-            <text>+{{ timer.increment/1000 }}</text>
-        </Transition>
+        <div :class="animation"
+            @animationend="animation = ''"
+        >+{{ timer.increment / 1000 }}</div>
     </Timer>
 </template>
 
@@ -21,21 +21,34 @@ const { timer } = defineProps({
 });
 
 const alarm = ref(false);
+const animation = ref("");
 
 timer.broadcast.add_listener(Event.UPDATE, () => {
-    alarm.value = timer.is_running && timer.remaining_time <= 3000 + UI_UPDATE_INTERVAL;
+    alarm.value = timer.remaining_time <= 3000 + UI_UPDATE_INTERVAL;
 });
 
-timer.broadcast.add_listener(Event.STOP, () => {});
+timer.broadcast.add_listener(Event.STOP, () => {
+    animation.value = "fade";
+});
+
 </script>
 
 <style scoped>
-.v-leave-active {
-    transition: all 0.5s ease-out;
+.fade {
+    animation: fade 1s both;
 }
 
-.v-leave-to {
-    font-size: 0;
-    opacity: 0;
+@keyframes fade {
+    50% {
+        transform: translateY(-120%) scale(1.2);
+        opacity: 0;
+    }
+    51%{
+        transform: translateY(110%);
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 </style>
