@@ -23,7 +23,7 @@ const { timer } = defineProps({
 const alarm = ref(false);
 
 timer.broadcast.add_listener(Event.UPDATE, () => {
-    alarm.value = timer.remaining_time <= 3000 + UI_UPDATE_INTERVAL;
+    alarm.value = timer.is_running && timer.remaining_time <= 3000 + UI_UPDATE_INTERVAL;
 });
 
 timer.broadcast.add_listener(Event.STOP, () => {});

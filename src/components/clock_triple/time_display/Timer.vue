@@ -22,7 +22,7 @@
             </div>
             <div
                 :class="[
-                    ' border-1 aspect-square bg-white h-[75%] rounded-[50%] drop-shadow-sm m-auto flex z-1 transition-all',
+                    ' border-1 aspect-square bg-white h-[75%] rounded-full drop-shadow-sm m-auto z-1 transition-all grid grid-rows-3 place-items-center font-thin',
                     timeout
                         ? 'border-red-500 border-10 md:border-20'
                         : alarm
@@ -32,20 +32,21 @@
             >
                 <div
                     :class="[
-                        'text-4xl sm:text-7xl md:text-8xl lg:text-9xl row-start-2 row-end-3 relative m-auto transition-all',
+                        'text-4xl sm:text-7xl md:text-8xl lg:text-9xl transition-all red-200 row-start-2',
                         timeout
                             ? 'text-red-500 sm:font-bold font-bold'
                             : alarm
                             ? 'text-red-500 font-normal scale-130'
-                            : 'text-black font-thin',
+                            : 'text-black',
                     ]"
                 >
                     {{ timeout ? "時間切" : time_string(remaining_time) }}
-                    <div
-                        class="absolute text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 translate-y-full bottom-0 left-1/2 -translate-x-1/2"
-                    >
-                        <slot></slot>
-                    </div>
+                </div>
+
+                <div
+                    class="text-gray-400 md:text-4xl lg:text-5xl sm:text-3xl text-2xl row-start-3 self-start "
+                >
+                    <slot></slot>
                 </div>
             </div>
         </div>
