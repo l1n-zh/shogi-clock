@@ -1,9 +1,9 @@
 <template>
     <Timer :timer="timer" :alarm="alarm">
         <Transition>
-            <text v-if="!is_byoyomi_started">
+            <div v-if="!is_byoyomi_started">
                 {{ timer.byoyomi / 1000 }}
-            </text>
+            </div>
         </Transition>
     </Timer>
 </template>
@@ -41,7 +41,7 @@ timer.broadcast.add_listener(Event.BYOYOMI_START, () => {
 }
 
 .v-leave-to {
-    font-size: 0;
+    transform: translateY(-2em) scale(1.5);
     opacity: 0;
 }
 </style>

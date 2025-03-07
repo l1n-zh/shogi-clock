@@ -40,7 +40,7 @@ timer.broadcast.add_listener(Event.STOP, () => {
 
 @keyframes fade {
     50% {
-        transform: translateY(-120%) scale(1.2);
+        transform: translateY(-2em) scale(1.2);
         opacity: 0;
     }
     51%{
