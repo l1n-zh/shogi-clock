@@ -32,6 +32,6 @@
 <script setup>
 import { ref } from "vue";
 import ConnectionBreaker from "./ConnectionBreaker.vue";
-import Card from "./Card.vue";
+import Card from "../ui/Card.vue";
 const connected = ref(false);
 </script>
