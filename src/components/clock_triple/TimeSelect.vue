@@ -1,15 +1,17 @@
 <template>
-    <span @click="select_clicked = true" class="select-none">
-        <text class="block text-2xl text-gray-800">{{ heading }}</text>
-        <span class="border-b-1 w-min mr-0.5">
-            <text class="text-6xl">{{ result }}</text>
+    <div>
+        <span @click="select_clicked = true" class="select-none">
+            <text class="block text-2xl text-gray-800">{{ heading }}</text>
+            <span class="border-b-1 w-min mr-0.5">
+                <text class="text-6xl">{{ result }}</text>
+            </span>
+            <text class="text-2xl">{{ unit }}</text>
         </span>
-        <text class="text-2xl">{{ unit }}</text>
-    </span>
-    <Dialog v-model="select_clicked">
-        <Selects :options="options" v-model="result"></Selects>
-        <NumberInput v-model="result" :unit="unit"></NumberInput>
-    </Dialog>
+        <Dialog v-model="select_clicked">
+            <Selects :options="options" v-model="result"></Selects>
+            <NumberInput v-model="result" :unit="unit"></NumberInput>
+        </Dialog>
+    </div>
 </template>
 
 <script setup>
