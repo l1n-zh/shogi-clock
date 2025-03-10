@@ -11,7 +11,11 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import Timer from "./Timer.vue";
-import { CountDownTimer, Event, UI_UPDATE_INTERVAL } from "../../timer";
+import {
+    CountDownTimer,
+    Event,
+    UI_UPDATE_INTERVAL,
+} from "@/timer/timer";
 
 /**
  * @type {{

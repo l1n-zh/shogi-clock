@@ -1,12 +1,14 @@
 <template>
-  <div class="h-[100vh]">
-    <ClockSelect></ClockSelect>
-  </div>
+    <div class="h-[100vh]">
+        <router-view v-slot="{ Component }">
+            <transition>
+                <component :is="Component" />
+            </transition>
+        </router-view>
+    </div>
 </template>
 
 <script setup>
-  import ClockSelect from "./components/ClockSelect.vue";
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

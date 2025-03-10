@@ -77,11 +77,13 @@ class Broadcast {
     }
 }
 
-function ui_update_callback(timer) {
-    if (timer.tick_count % UI_UPDATE_RATIO === 0) {
-        this.remaining_time = timer.remaining_time;
-        this.total_time = timer.total_time;
-        this.broadcast.emit(Event.UPDATE);
+class ui_update_callback {
+    constructor(timer) {
+        if (timer.tick_count % UI_UPDATE_RATIO === 0) {
+            this.remaining_time = timer.remaining_time;
+            this.total_time = timer.total_time;
+            this.broadcast.emit(Event.UPDATE);
+        }
     }
 }
 

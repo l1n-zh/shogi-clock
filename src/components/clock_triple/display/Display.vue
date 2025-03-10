@@ -27,10 +27,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import CountDownTimerVue from "./CountDownTimer.vue";
 import IncrementalTimerVue from "./IncrementalTimer.vue";
-import { CountDownTimer, IncrementalTimer } from "../../timer";
+import { CountDownTimer, IncrementalTimer } from "@/timer/timer";
+
+const timers = defineModel({
+    timer_l: {
+        type: Object,
+    },
+    timer_r: {
+        type: Object,
+    },
+});
 
 const timer_l = new CountDownTimer({
     initial_time: 1 * 1000,

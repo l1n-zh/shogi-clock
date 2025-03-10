@@ -15,9 +15,10 @@
 </template>
 
 <script setup>
-import NumberInput from "../ui/NumberInput.vue";
-import Selects from "../ui/Selects.vue";
-import Dialog from "../ui/Dialog.vue";
+import NumberInput from "@/components/ui/NumberInput.vue";
+import Selects from "@/components/ui/Selects.vue";
+import Dialog from "@/components/ui/Dialog.vue";
+
 import { ref } from "vue";
 
 const props = defineProps({

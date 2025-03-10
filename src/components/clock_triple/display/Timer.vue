@@ -57,13 +57,13 @@
 </template>
 
 <script setup>
-import { isReactive, ref } from "vue";
+import { ref } from "vue";
 import {
     CountDownTimer,
     IncrementalTimer,
     UI_UPDATE_INTERVAL,
     Event,
-} from "../../timer";
+} from "@/timer/timer";
 
 /**
  * @type {{

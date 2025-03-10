@@ -1,15 +1,19 @@
 <template>
     <Timer :timer="timer" :alarm="alarm">
-        <div :class="animation"
-            @animationend="animation = ''"
-        >+{{ timer.increment / 1000 }}</div>
+        <div :class="animation" @animationend="animation = ''">
+            +{{ timer.increment / 1000 }}
+        </div>
     </Timer>
 </template>
 
 <script setup>
 import { ref, watchEffect } from "vue";
 import Timer from "./Timer.vue";
-import { Event, IncrementalTimer, UI_UPDATE_INTERVAL } from "../../timer";
+import {
+    Event,
+    IncrementalTimer,
+    UI_UPDATE_INTERVAL,
+} from "@/timer/timer";
 
 /**
  * @type {{
@@ -30,7 +34,6 @@ timer.broadcast.add_listener(Event.UPDATE, () => {
 timer.broadcast.add_listener(Event.STOP, () => {
     animation.value = "fade";
 });
-
 </script>
 
 <style scoped>
@@ -43,11 +46,11 @@ timer.broadcast.add_listener(Event.STOP, () => {
         transform: translateY(-2em) scale(1.2);
         opacity: 0;
     }
-    51%{
+    51% {
         transform: translateY(110%);
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }

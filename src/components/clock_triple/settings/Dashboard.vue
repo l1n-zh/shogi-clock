@@ -7,12 +7,14 @@
 </template>
 
 <script setup>
-import TimeSetting from "./TimeSetting.vue";
-import ConnectionManager from "./ConnectionManager.vue";
+import TimeSetting from "@/components/clock_triple/TimeSetting.vue";
+import ConnectionManager from "@/components/clock_triple/ConnectionManager.vue";
 import { ref } from "vue";
 
 const time_setting = ref({
+    mode:"countdown",
     initial_time: 10,
+    increment: 10,
     byoyomi: 30,
 });
 </script>
