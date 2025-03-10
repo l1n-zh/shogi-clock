@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import TimeSetting from "@/components/clock_triple/TimeSetting.vue";
-import ConnectionManager from "@/components/clock_triple/ConnectionManager.vue";
+import TimeSetting from "./TimeSetting.vue";
+import ConnectionManager from "./ConnectionManager.vue";
 import { ref } from "vue";
 
 const time_setting = ref({
