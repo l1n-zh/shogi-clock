@@ -77,19 +77,17 @@ class Broadcast {
     }
 }
 
-class ui_update_callback {
-    constructor(timer) {
-        if (timer.tick_count % UI_UPDATE_RATIO === 0) {
-            this.remaining_time = timer.remaining_time;
-            this.total_time = timer.total_time;
-            this.broadcast.emit(Event.UPDATE);
-        }
+function ui_update_callback(timer) {
+    if (timer.tick_count % UI_UPDATE_RATIO === 0) {
+        this.remaining_time = timer.remaining_time;
+        this.total_time = timer.total_time;
+        this.broadcast.emit(Event.UPDATE);
     }
 }
 
 class CountDownTimer {
     /**
-     * 
+     *
      * @param {Number} initial_time - Initial time in milliseconds
      * @param {Number} byoyomi - Byoyomi time in milliseconds
      */
@@ -151,7 +149,7 @@ class CountDownTimer {
 
 class IncrementalTimer {
     /**
-     * 
+     *
      * @param {Number} initial_time - Initial time in milliseconds
      * @param {Number} increment - Increment time in milliseconds
      */
@@ -194,7 +192,7 @@ class IncrementalTimer {
         this.timer.total_time = this.timer.remaining_time;
 
         this.remaining_time = this.timer.remaining_time;
-        this.total_time = this.timer.total_time; 
+        this.total_time = this.timer.total_time;
 
         this.broadcast.emit(Event.UPDATE);
         this.broadcast.emit(Event.STOP);
