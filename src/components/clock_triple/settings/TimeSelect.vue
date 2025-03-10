@@ -7,17 +7,17 @@
             </span>
             <text class="text-2xl">{{ unit }}</text>
         </span>
-        <Dialog v-model="select_clicked">
+        <Modal v-model="select_clicked">
             <Selects :options="options" v-model="result"></Selects>
             <NumberInput v-model="result" :unit="unit"></NumberInput>
-        </Dialog>
+        </Modal>
     </div>
 </template>
 
 <script setup>
 import NumberInput from "@/components/ui/NumberInput.vue";
 import Selects from "@/components/ui/Selects.vue";
-import Dialog from "@/components/ui/Dialog.vue";
+import Modal from "@/components/ui/Modal.vue";
 
 import { ref } from "vue";
 
