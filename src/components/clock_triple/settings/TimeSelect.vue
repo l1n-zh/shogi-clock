@@ -27,7 +27,7 @@ const props = defineProps({
     options: Array,
 });
 
-const result = defineModel("result", {
+const result = defineModel({
     type: Number,
 });
 

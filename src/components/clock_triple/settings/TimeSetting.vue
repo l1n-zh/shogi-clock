@@ -2,9 +2,9 @@
     <div class="flex gap-10 font-light">
         <TimeSelect
             heading="每方分鐘數"
-            :options="[0, 3, 5, 10, 15, 20, 30, 60]"
+            :options="[0, 5, 10, 15, 20, 30, 60]"
             unit="分"
-            v-model:result="time_setting.initial_time"
+            v-model="timer_setting.initial_time"
         >
         </TimeSelect>
 
@@ -13,45 +13,48 @@
                 <text
                     :class="[
                         'text-2xl transition-all',
-                        time_setting.mode == 'countdown'
+                        timer_setting.mode == TimerMode.COUNTDOWN
                             ? 'text-gray-800'
                             : 'text-gray-400 scale-80 translate-x-[calc(100%+4px)]',
                     ]"
-                    @click="time_setting.mode = 'countdown'"
+                    @click="timer_setting.mode = TimerMode.COUNTDOWN"
                     >讀秒</text
                 >
                 <div class="border-r-1 border-gray-400 w-0 h-5 mx-1"></div>
                 <text
                     :class="[
                         'text-2xl transition-all',
-                        time_setting.mode == 'incremental'
+                        timer_setting.mode == TimerMode.INCREMENTAL
                             ? 'text-gray-800 translate-x-[calc(-100%-8px)]'
                             : 'text-gray-400 scale-90 ',
                     ]"
-                    @click="time_setting.mode = 'incremental'"
+                    @click="timer_setting.mode = TimerMode.INCREMENTAL"
                     >加秒</text
                 >
             </div>
             <TimeSelect
-                :options=" [0, 10, 15, 20, 30, 40, 50, 60]"
+                :options="[0, 5, 10, 20, 30, 60]"
                 unit="秒"
-                v-model:result="time_setting.byoyomi"
-                v-if="time_setting.mode == 'countdown'"
+                v-model="timer_setting.byoyomi"
+                v-if="timer_setting.mode == TimerMode.COUNTDOWN"
             ></TimeSelect>
 
             <TimeSelect
-                :options="[0, 3, 5, 10, 20, 30, 40, 50]" unit="秒"
-                v-model:result="time_setting.increment"
-                v-if="time_setting.mode == 'incremental'"
+                :options="[0, 2, 5, 10]"
+                unit="秒"
+                v-model="timer_setting.increment"
+                v-if="timer_setting.mode == TimerMode.INCREMENTAL"
             ></TimeSelect>
         </div>
     </div>
 </template>
 
 <script setup>
+import Timer from "../display/Timer.vue";
 import TimeSelect from "./TimeSelect.vue";
+import { TimerMode } from "@/timer/timer_setting_manager";
 
-const time_setting = defineModel({
+const timer_setting = defineModel({
     mode: {
         type: String,
     },

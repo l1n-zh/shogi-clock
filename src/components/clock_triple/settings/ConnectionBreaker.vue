@@ -20,7 +20,6 @@
             <div
                 v-show="connected"
                 class="w-0 h-6 border-x-transparent border-x-[4px] border-y-[8px] absolute left-1/2 -translate-1/2"
-                @click="connected = false"
             >
                 <text
                     class="absolute sm:w-max w-min sm:leading-normal leading-none text-2xl top-0 -translate-x-1/2 -translate-y-[130%]"
@@ -32,7 +31,12 @@
 </template>
 
 <script setup>
-const connected = defineModel({ type: Boolean });
+import { ref } from "vue";
+import { ConnectionManager, Event } from "@/connection/connection_manager";
+
+const { manager, pad_id } = defineProps({
+    connected: { type: Boolean, default: false },
+});
 </script>
 
 <style lang="postcss" scoped>
