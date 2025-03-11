@@ -1,3 +1,5 @@
+import { Broadcast } from "@/utils/broadcast";
+
 const TIMER_TICK_INTERVAL = 10;
 const UI_UPDATE_INTERVAL = 50;
 const UI_UPDATE_RATIO = UI_UPDATE_INTERVAL / TIMER_TICK_INTERVAL;
@@ -43,39 +45,6 @@ const Event = {
     TIMEOUT: "timeout",
     BYOYOMI_START: "byoyomi_start",
 };
-
-class Broadcast {
-    /**
-     *
-     * @param  {...Event} events
-     */
-    constructor(...events) {
-        this.listeners = {};
-        events.forEach((event) => {
-            this.listeners[event] = [];
-        });
-    }
-
-    /**
-     *
-     * @param {Event} event
-     * @param {function} callback
-     */
-    add_listener(event, callback) {
-        if (!this.listeners[event]) this.listeners[event] = [];
-        this.listeners[event].push(callback);
-    }
-
-    /**
-     *
-     * @param {Event} event
-     * @returns
-     */
-    emit(event) {
-        if (!this.listeners[event]) return;
-        this.listeners[event].forEach((callback) => callback());
-    }
-}
 
 function ui_update_callback(timer) {
     if (timer.tick_count % UI_UPDATE_RATIO === 0) {
