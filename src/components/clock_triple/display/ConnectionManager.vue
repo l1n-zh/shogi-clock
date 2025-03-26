@@ -3,7 +3,7 @@
         <Card
             :class="[
                 'transition-all duration-500 delay-500',
-                pad_connections[1] ? '' : 'text-gray-300',
+                button_connections[1] ? '' : 'text-gray-300',
             ]"
         >
             <text class="text-4xl font-normal"> 左 </text>
@@ -11,27 +11,27 @@
             <text class="text-lg sm:leading-normal leading-none">按鍵</text>
         </Card>
         <ConnectionBreaker
-            :connected="pad_connections[1]"
+            :connected="button_connections[1]"
             @click="manager.disconnect(1)"
         ></ConnectionBreaker>
         <Card
             :class="['sm:text-6xl text-5xl rounded-t-none']"
             @click="
-                pad_connections[1] && pad_connections[2]
+                button_connections[1] && button_connections[2]
                     ? manager.ready()
                     : console.log('copy to clipboard')
             "
         >
-            {{ pad_connections[1] && pad_connections[2] ? "start" : clock_id }}
+            {{ button_connections[1] && button_connections[2] ? "start" : clock_id }}
         </Card>
         <ConnectionBreaker
-            :connected="pad_connections[2]"
+            :connected="button_connections[2]"
             @click="manager.disconnect(2)"
         ></ConnectionBreaker>
         <Card
             :class="[
                 'transition-all duration-500 delay-500',
-                pad_connections[2] ? '' : 'text-gray-300',
+                button_connections[2] ? '' : 'text-gray-300',
             ]"
         >
             <text class="text-4xl font-normal"> 右 </text>
@@ -57,18 +57,18 @@ const { clock_id, manager } = defineProps({
     manager: Object,
 });
 
-const pad_connections = ref({
-    1: manager.is_pad_connected(1),
-    2: manager.is_pad_connected(2),
+const button_connections = ref({
+    1: manager.is_button_connected(1),
+    2: manager.is_button_connected(2),
 });
 
 manager.broadcast.add_listener(Event.DISCONNECT, (id) => {
     console.log("disconnect", id);
-    pad_connections.value[id] = false;
+    button_connections.value[id] = false;
 });
 
 manager.broadcast.add_listener(Event.CONNECT, (id) => {
     console.log("connect", id);
-    pad_connections.value[id] = true;
+    button_connections.value[id] = true;
 });
 </script>

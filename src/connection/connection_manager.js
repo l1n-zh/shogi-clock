@@ -27,7 +27,7 @@ class ConnectionManager {
         this.broadcast.emit(Event.READY);
     }
     
-    is_pad_connected(id) {
+    is_button_connected(id) {
         return true;
     }
 }

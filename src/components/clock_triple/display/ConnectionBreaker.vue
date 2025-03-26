@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-const { manager, pad_id } = defineProps({
+const { manager, button_id } = defineProps({
     connected: { type: Boolean, default: false },
 });
 </script>

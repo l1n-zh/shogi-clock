@@ -6,14 +6,14 @@ import {
 
 import ClockSelect from "./views/ClockSelect.vue";
 import RoleSelect from "./views/clock_triple/RoleSelect.vue";
-import PadView from "./views/clock_triple/PadView.vue";
+import ButtonView from "./views/clock_triple/ButtonView.vue";
 import DisplayView from "./views/clock_triple/DisplayView.vue";
 
 const routes = [
     { path: "/", component: ClockSelect },
     { path: "/triple", component: RoleSelect },
     { path: "/triple/display", component: DisplayView },
-    { path: "/triple/pad", component: PadView },
+    { path: "/triple/button", component: ButtonView },
 ];
 
 export const router = createRouter({
