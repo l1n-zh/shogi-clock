@@ -1,11 +1,11 @@
 <template>
     <div class="h-[100vh]">
         <Transition name="fade">
-            <Dashboard
+            <Settings
                 :timer_setting_manager="timer_setting_manager"
                 :connection_manager="connection_manager"
                 v-if="!ready"
-            ></Dashboard>
+            ></Settings>
         </Transition>
         <Transition name="fade">
             <Display
@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Dashboard from "@/components/clock_triple/display/Dashboard.vue";
+import Settings from "@/components/clock_triple/display/Settings.vue";
 import Display from "@/components/clock_triple/display/Display.vue";
 
 import { TimerSettingManager } from "@/timer/timer_setting_manager";
