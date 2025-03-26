@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Dashboard from "@/components/clock_triple/settings/Dashboard.vue";
+import Dashboard from "@/components/clock_triple/display/Dashboard.vue";
 import Display from "@/components/clock_triple/display/Display.vue";
 
 import { TimerSettingManager } from "@/timer/timer_setting_manager";

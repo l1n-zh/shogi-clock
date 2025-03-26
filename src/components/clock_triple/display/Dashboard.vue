@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import TimeSetting from "./TimeSetting.vue";
+import TimeSetting from "@/components/shared/TimeSetting.vue";
 import ConnectionManagerVue from "./ConnectionManager.vue";
 
 import { TimerSettingManager } from "@/timer/timer_setting_manager";

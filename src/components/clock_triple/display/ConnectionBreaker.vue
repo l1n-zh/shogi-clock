@@ -1,8 +1,8 @@
 <template>
-    <span class="w-10 sm:w-25 relative select-none">
+    <span class="w-12 sm:w-25 relative select-none">
         <hr
             :class="[
-                'w-full transition-colors duration-300 delay-400 top-1/2 absolute -z-1',
+                'w-[96%] transition-colors duration-300 delay-400 top-1/2 absolute -z-1 ml-[2%]',
                 connected ? 'border-black' : 'border-gray-300',
             ]"
         />
@@ -19,10 +19,10 @@
         <Transition name="breaker">
             <div
                 v-show="connected"
-                class="w-0 h-6 border-x-transparent border-x-[4px] border-y-[8px] absolute left-1/2 -translate-1/2"
+                class="w-0 h-5 border-x-transparent border-x-[3px] border-y-[7px] absolute left-1/2 -translate-1/2"
             >
                 <text
-                    class="absolute sm:w-max w-min sm:leading-normal leading-none text-2xl top-0 -translate-x-1/2 -translate-y-[130%]"
+                    class="absolute sm:w-max w-min sm:leading-normal leading-none text-2xl top-0 -translate-x-1/2 -translate-y-[120%]"
                     >切斷</text
                 >
             </div>
@@ -31,9 +31,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { ConnectionManager, Event } from "@/connection/connection_manager";
-
 const { manager, pad_id } = defineProps({
     connected: { type: Boolean, default: false },
 });

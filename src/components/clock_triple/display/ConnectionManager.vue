@@ -8,23 +8,22 @@
         >
             <text class="text-4xl font-normal"> 左 </text>
             <br />
-            <text class="text-2xl sm:leading-normal leading-none">按鍵</text>
+            <text class="text-lg sm:leading-normal leading-none">按鍵</text>
         </Card>
         <ConnectionBreaker
             :connected="pad_connections[1]"
             @click="manager.disconnect(1)"
         ></ConnectionBreaker>
         <Card
-            :class="['sm:text-6xl text-5xl']"
+            :class="['sm:text-6xl text-5xl rounded-t-none']"
             @click="
                 pad_connections[1] && pad_connections[2]
                     ? manager.ready()
                     : console.log('copy to clipboard')
             "
-            >{{
-                pad_connections[1] && pad_connections[2] ? "start" : clock_id
-            }}</Card
         >
+            {{ pad_connections[1] && pad_connections[2] ? "start" : clock_id }}
+        </Card>
         <ConnectionBreaker
             :connected="pad_connections[2]"
             @click="manager.disconnect(2)"
@@ -37,7 +36,7 @@
         >
             <text class="text-4xl font-normal"> 右 </text>
             <br />
-            <text class="text-2xl sm:leading-normal leading-none">按鍵</text>
+            <text class="text-lg sm:leading-normal leading-none">按鍵</text>
         </Card>
     </div>
 </template>

@@ -50,7 +50,6 @@
 </template>
 
 <script setup>
-import Timer from "../display/Timer.vue";
 import TimeSelect from "./TimeSelect.vue";
 import { TimerMode } from "@/timer/timer_setting_manager";
 
