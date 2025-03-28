@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="text-2xl">
         <span ref="selector" class="select-none">
-            <text class="block text-2xl text-gray-800">{{ heading }}</text>
+            <text class="block text-gray-800">{{ heading }}</text>
             <span class="border-b-1 w-min mr-0.5">
                 <text class="text-6xl">{{ result }}</text>
             </span>
-            <text class="text-2xl">{{ unit }}</text>
+            <text>{{ unit }}</text>
         </span>
         <Modal :activator="selector">
             <Selects :options="options" v-model="result"></Selects>

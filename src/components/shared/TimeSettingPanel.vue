@@ -1,16 +1,29 @@
 <template>
-        <Sheet class="flex flex-col items-center justify-center gap-6">
-            <div>進階設定 <Switch v-model="advance_mode" :options="['基本','進階']"></Switch></div>
-            <div v-if="!advance_mode">
-                <TimeSetting v-model="timer_setting_l"></TimeSetting>
+    <Sheet class="flex flex-col items-center justify-center">
+        <Switch
+            v-model="advance_mode"
+            :labels="['基本', '進階']"
+            class="mb-3 font-light text-xl"
+        ></Switch>
+
+        <div v-if="!advance_mode">
+            <TimeSetting v-model="timer_setting_l"></TimeSetting>
+        </div>
+
+        <div v-if="advance_mode" class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-col items-center">
+                <Divider class="w-[90%] mb-3"> 左 </Divider>
+                <TimeSetting
+                    v-model="timer_setting_l"
+                ></TimeSetting>
             </div>
-            <div v-if="advance_mode" class="flex">
-                <Divider :vertical="true"> 左 </Divider>
-                <TimeSetting v-model="timer_setting_l" class="mr-10"></TimeSetting>
-                <Divider :vertical="true"> 右 </Divider>
+
+            <div class="flex flex-col items-center">
+                <Divider class="w-[90%] mb-3">右</Divider>
                 <TimeSetting v-model="timer_setting_r"></TimeSetting>
             </div>
-        </Sheet>
+        </div>
+    </Sheet>
 </template>
 
 <script setup>
@@ -31,7 +44,7 @@ const advance_mode = ref(0);
  * }}
  */
 const { timer_setting_manager } = defineProps({
-    timer_setting_manager: { type: Object, required:true },
+    timer_setting_manager: { type: Object, required: true },
 });
 
 const timer_setting_l = ref(timer_setting_manager.settings[1]);

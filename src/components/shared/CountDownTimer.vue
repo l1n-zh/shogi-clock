@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 import Timer from "./Timer.vue";
 import {
     CountDownTimer,
