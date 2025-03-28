@@ -15,14 +15,14 @@
             @click="manager.disconnect(1)"
         ></ConnectionBreaker>
         <Card
-            :class="['sm:text-6xl text-5xl rounded-t-none']"
+            :class="['sm:text-5xl text-4xl rounded-t-none w-[4em] font-thin']"
             @click="
                 button_connections[1] && button_connections[2]
                     ? manager.ready()
                     : console.log('copy to clipboard')
             "
         >
-            {{ button_connections[1] && button_connections[2] ? "start" : clock_id }}
+            {{ button_connections[1] && button_connections[2] ? "啟動" : clock_id }}
         </Card>
         <ConnectionBreaker
             :connected="button_connections[2]"
