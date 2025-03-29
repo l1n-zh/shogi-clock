@@ -1,7 +1,7 @@
 <template>
     <div class="grid grid-cols-2 gap-3 h-full w-full place-items-center">
-        <component :is="typeof_timer(timer_l)" :timer="timer_l" />
-        <component :is="typeof_timer(timer_r)" :timer="timer_r" />
+        <component :is="typeof_timer(clock.timers[0])" :timer="clock.timers[0]" />
+        <component :is="typeof_timer(clock.timers[1])" :timer="clock.timers[1]" />
     </div>
 </template>
 
@@ -9,13 +9,12 @@
 import CountDownTimerVue from "./CountDownTimer.vue";
 import IncrementalTimerVue from "./IncrementalTimer.vue";
 import { CountDownTimer, IncrementalTimer } from "@/timer/timer";
+import { Clock } from "@/timer/clock";
 
-const { timer_l, timer_r } = defineProps({
-    timer_l: {
-        type: Object,
-    },
-    timer_r: {
-        type: Object,
+const { clock } = defineProps({
+    clock: {
+        type: Clock,
+        required: true,
     },
 });
 

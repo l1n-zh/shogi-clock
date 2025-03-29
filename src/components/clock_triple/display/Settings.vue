@@ -4,7 +4,7 @@
             :manager="connection_manager"
             clock_id="12345"
         ></ConnectionControlPanel>
-        <TimeSettingPanel :timer_setting_manager="timer_setting_manager"></TimeSettingPanel>
+        <TimeSettingPanel :time_settings="time_settings"></TimeSettingPanel>
         <div class="fixed left-0 top-0">
             <button @click="connection_manager.connect(1)" class="border-1">
                 connect 1
@@ -21,7 +21,7 @@
 import ConnectionControlPanel from "./ConnectionControlPanel.vue";
 import TimeSettingPanel from "@/components/shared/TimeSettingPanel.vue";
 
-import { TimerSettingManager } from "@/timer/timer_setting_manager";
+import { TimeSettings } from "@/timer/time_settings";
 import { ConnectionManager } from "@/connection/connection_manager";
 
 import { ref } from "vue";
@@ -30,12 +30,12 @@ const advance_mode = ref(false);
 
 /**
  * @type {{
- *     timer_setting_manager: TimerSettingManager;
+ *     time_settings: TimeSettings;
  *     connection_manager: ConnectionManager;
  * }}
  */
-const { timer_setting_manager, connection_manager } = defineProps({
-    timer_setting_manager: { type: Object },
+const { time_settings, connection_manager } = defineProps({
+    time_settings: { type: Object },
     connection_manager: { type: Object },
 });
 </script>
