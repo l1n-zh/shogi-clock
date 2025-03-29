@@ -1,18 +1,20 @@
 <template>
     <Transition>
-        <div
-            class="absolute z-2 w-full h-full top-0 left-0 backdrop-blur-xs"
-            @click="visible = false"
-            v-show="visible"
-        ></div>
-    </Transition>
-    <Transition>
-        <div
-            class="flex flex-col items-center absolute backdrop-blur-xs border-1 border-gray-100 rounded-md top-1/2 left-1/2 backdrop-brightness-110 -translate-1/2 p-10 z-2 w-max max-w-11/12 select-none"
-            v-show="visible"
-        >
-            <slot></slot>
-        </div>
+        <Teleport to="body">
+            <div
+                class="fixed w-screen h-screen top-0 left-0 backdrop-blur-xs z-2 border-1 flex"
+                v-show="visible"
+                @click.prevent="visible = false"
+            >
+                <div
+                    class="bg-white/70 m-auto border-1 border-gray-100 rounded-md backdrop-brightness-110 p-10 w-max max-w-11/12 select-none shadow-xs"
+                    v-show="visible"
+                    @click.stop=""
+                >
+                    <slot></slot>
+                </div>
+            </div>
+        </Teleport>
     </Transition>
 </template>
 
