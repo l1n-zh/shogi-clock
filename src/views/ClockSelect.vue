@@ -3,20 +3,26 @@
         <text class="block m-[3vh] font-bold text-gray-400 text-3xl"
             >科摩多龍棋鐘</text
         >
-        <div class="grid grid-cols-3 gap-[3vh] mx-[3vh]">
-            <div class="border-1">
-                <div class="aspect-square bg-gray-200"></div>
-                <text class="block w-full text-center text-2xl">單機</text>
-            </div>
-            <RouterLink to="/triple">
-                <div class="border-1">
+        <div class="grid grid-cols-3 gap-[3vh] mx-[3vh] font-light">
+            <RouterLink to="/single">
+                <div class="p-3 rounded-xl border-1">
                     <div class="aspect-square bg-gray-200"></div>
-                    <text class="block w-full text-center text-2xl">三機</text>
+                    <text class="block w-full text-center text-2xl mt-3"
+                        >單機</text
+                    >
                 </div>
             </RouterLink>
-            <div class="border-1">
+            <RouterLink to="/triple">
+                <div class="p-3 rounded-xl border-1">
+                    <div class="aspect-square bg-gray-200"></div>
+                    <text class="block w-full text-center text-2xl mt-3"
+                        >三機</text
+                    >
+                </div>
+            </RouterLink>
+            <div class="p-3 rounded-xl border-1 opacity-40">
                 <div class="aspect-square bg-gray-200"></div>
-                <text class="block w-full text-center text-2xl">聯機</text>
+                <text class="block w-full text-center text-2xl mt-3">聯機</text>
             </div>
         </div>
     </div>
