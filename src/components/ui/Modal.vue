@@ -1,21 +1,24 @@
 <template>
-    <Transition>
-        <Teleport to="body">
+    <Teleport to="body">
+        <Transition>
             <div
                 class="fixed w-screen h-screen top-0 left-0 backdrop-blur-xs z-2 border-1 flex"
                 v-show="visible"
                 @click.prevent="visible = false"
             >
                 <div
-                    class="bg-white/70 m-auto border-1 border-gray-100 rounded-md backdrop-brightness-110 p-10 w-max max-w-11/12 select-none shadow-xs"
+                    :class="[
+                        'bg-white/70 m-auto border-1 border-gray-100 rounded-md backdrop-brightness-110 p-6 md:p-10 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
+                        props.class,
+                    ]"
                     v-show="visible"
                     @click.stop=""
                 >
                     <slot></slot>
                 </div>
             </div>
-        </Teleport>
-    </Transition>
+        </Transition>
+    </Teleport>
 </template>
 
 <script setup>
@@ -23,6 +26,7 @@ import { ref, onMounted, watch, onUnmounted } from "vue";
 
 const props = defineProps({
     activator: Object,
+    class: { type: String, default: "" },
 });
 
 const visible = ref(false);

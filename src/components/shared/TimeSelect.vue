@@ -7,7 +7,7 @@
             </span>
             <text>{{ unit }}</text>
         </span>
-        <Modal :activator="selector">
+        <Modal :activator="selector" class="flex flex-col items-center">
             <Selects :options="options" v-model="result"></Selects>
             <NumberInput v-model="result" :unit="unit"></NumberInput>
         </Modal>

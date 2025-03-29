@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-6 font-light max-w-fit">
+    <div class="flex md:gap-6 gap-3 font-light max-w-fit">
         <TimeSelect
             heading="每方分鐘數"
             :options="[0, 5, 10, 15, 20, 30, 60]"
