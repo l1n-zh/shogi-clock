@@ -8,7 +8,7 @@
             >
                 <div
                     :class="[
-                        'bg-white/70 m-auto border-1 border-gray-100 rounded-md backdrop-brightness-110 p-6 md:p-10 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
+                        'bg-white/70 m-auto border-1 border-gray-200 rounded-md backdrop-brightness-110 p-6 md:p-10 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
                         props.class,
                     ]"
                     v-show="visible"
