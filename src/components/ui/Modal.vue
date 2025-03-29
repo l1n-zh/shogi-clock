@@ -52,7 +52,6 @@ onMounted(() => {
     watch(
         () => props.activator,
         (new_activator, old_activator) => {
-            console.log(new_activator, old_activator);
             remove_listener();
             if (new_activator) {
                 activator_el = get_activator_el(new_activator);
