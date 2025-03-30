@@ -2,13 +2,13 @@
     <Teleport to="body">
         <Transition>
             <div
-                class="fixed w-screen h-screen top-0 left-0 backdrop-blur-xs z-2 border-1 flex"
+                class="fixed w-full h-full top-0 left-0 backdrop-blur-xs z-2 flex"
                 v-show="visible"
                 @click.prevent="visible = false"
             >
                 <div
                     :class="[
-                        'bg-white/70 m-auto border-1 border-gray-200 rounded-md backdrop-brightness-110 p-6 md:p-10 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
+                        'bg-white/70 m-auto border-1 border-gray-200 rounded-md px-6 py-3 md:px-10 md:py-6 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
                         props.class,
                     ]"
                     v-show="visible"
@@ -29,7 +29,7 @@ const props = defineProps({
     class: { type: String, default: "" },
 });
 
-const visible = ref(false);
+const visible = defineModel({ default: false })
 let activator_el = null;
 
 const toggle_visibility = () => {

@@ -2,7 +2,7 @@
     <div class="h-min text-5xl relative flex items-end">
         <span class="border-b-1 w-min h-min mb-2">
             <input
-                class="text-center font-thin line-0 leading-none -mb-2"
+                class="text-center font-thin line-0 leading-none -mb-2 outline-0"
                 :style="{ width: props.width }"
                 inputmode="numeric"
                 v-model="_input"
