@@ -1,5 +1,5 @@
 <template>
-    <div class="w-max select-none">
+    <div class="select-none">
         <ul class="flex m-auto flex-wrap">
             <li
                 :class="[
