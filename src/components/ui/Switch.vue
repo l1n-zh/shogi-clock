@@ -1,5 +1,5 @@
 <template>
-    <div class="flex select-none items-center">
+    <div class="flex select-none items-center touch-manipulation">
         <text
             :class="[
                 'transition-all',
