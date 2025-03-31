@@ -2,8 +2,8 @@ import { Broadcast } from "@/utils/broadcast";
 
 const Event = {
     READY: "ready",
-    CONNECT: "stop",
-    DISCONNECT: "update",
+    CONNECT: "connect",
+    DISCONNECT: "disconnect",
 };
 
 class ConnectionManager {

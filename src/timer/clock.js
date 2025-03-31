@@ -34,7 +34,7 @@ class Clock {
     }
 
     pause() {
-        this.timers[this.running_timer_id].stop();
+        this.timers[this.running_timer_id].stop(false);
         this.status = Status.PAUSED;
         this.broadcast.emit(Event.PAUSE);
     }

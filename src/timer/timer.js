@@ -103,11 +103,11 @@ class CountDownTimer {
         this.broadcast.emit(Event.START);
     }
 
-    stop() {
+    stop(switch_turn = true) {
         if (!this.is_running) return;
         this.timer.stop();
         this.is_running = false;
-        if (this.is_byoyomi_started) {
+        if (switch_turn && this.is_byoyomi_started) {
             this.timer.remaining_time = this.byoyomi;
             this.remaining_time = this.byoyomi;
             this.broadcast.emit(Event.UPDATE);
@@ -153,17 +153,19 @@ class IncrementalTimer {
         this.broadcast.emit(Event.START);
     }
 
-    stop() {
+    stop(switch_turn = true) {
         if (!this.is_running) return;
         this.timer.stop();
         this.is_running = false;
-        this.timer.remaining_time += this.increment;
-        this.timer.total_time = this.timer.remaining_time;
+        if (switch_turn) {
+            this.timer.remaining_time += this.increment;
+            this.timer.total_time = this.timer.remaining_time;
 
-        this.remaining_time = this.timer.remaining_time;
-        this.total_time = this.timer.total_time;
+            this.remaining_time = this.timer.remaining_time;
+            this.total_time = this.timer.total_time;
 
-        this.broadcast.emit(Event.UPDATE);
+            this.broadcast.emit(Event.UPDATE);
+        }
         this.broadcast.emit(Event.STOP);
     }
 }
