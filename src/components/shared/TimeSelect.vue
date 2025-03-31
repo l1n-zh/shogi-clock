@@ -1,6 +1,6 @@
 <template>
     <div class="text-2xl">
-        <span ref="selector" class="select-none">
+        <span ref="selector">
             <text class="block text-gray-800">{{ heading }}</text>
             <span class="border-b-1 w-min mr-0.5">
                 <text class="text-6xl">{{ result }}</text>

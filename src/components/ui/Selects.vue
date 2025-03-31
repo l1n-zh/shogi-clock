@@ -1,5 +1,5 @@
 <template>
-    <div class="select-none">
+    <div>
         <ul class="flex m-auto flex-wrap">
             <li
                 :class="[

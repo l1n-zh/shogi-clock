@@ -1,5 +1,5 @@
 <template>
-    <span class="w-12 sm:w-25 relative select-none">
+    <span class="w-12 sm:w-25 relative">
         <hr
             :class="[
                 'w-[96%] transition-colors duration-300 delay-400 top-1/2 absolute -z-1 ml-[2%]',

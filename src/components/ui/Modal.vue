@@ -2,13 +2,13 @@
     <Teleport to="body">
         <Transition>
             <div
-                class="fixed w-full h-full top-0 left-0 backdrop-blur-xs z-2 flex"
+                class="fixed w-full h-full top-0 left-0 backdrop-blur-xs z-2 flex touch-none select-none"
                 v-show="visible"
                 @click.prevent="visible = false"
             >
                 <div
                     :class="[
-                        'bg-white/70 m-auto border-1 border-gray-200 rounded-md px-6 py-3 md:px-10 md:py-6 w-max max-w-11/12 select-none shadow-xs overflow-auto max-h-11/12',
+                        'bg-white/70 m-auto border-1 border-gray-200 rounded-md px-6 py-3 md:px-10 md:py-6 w-max max-w-11/12 shadow-xs overflow-auto max-h-11/12 touch-none',
                         props.class,
                     ]"
                     v-show="visible"
