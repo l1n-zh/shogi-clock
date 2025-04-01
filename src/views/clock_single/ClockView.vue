@@ -6,12 +6,10 @@
     <div class="h-[100vh]">
         <ClockVue :clock="clock"></ClockVue>
     </div>
-    <button @click="clock.press(0)">press 0</button>
-    <button @click="clock.press(1)">press 1</button>
 </template>
 
 <script setup>
-import ClockVue from "@/components/shared/Clock.vue";
+import ClockVue from "@/components/clock_single/Clock.vue";
 import TimeControlPanel from "@/components/clock_single/TimeControlPanel.vue";
 
 import { TimeSettings } from "@/timer/time_settings";

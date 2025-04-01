@@ -1,35 +1,49 @@
 <template>
-    <div class="relative">
-        <ClockVue :timer_l="timer_l" :timer_r="timer_r"></ClockVue>
-        <div>
-            <Button
-                class="absolute lg:text-3xl sm:text-xl text-sm left-1/2 top-2 -translate-x-1/2"
-                ref="setting-button"
-                >Setting</Button
-            >
-            <Modal :activator="setting_button">
-                <TimeControlPanel
-                    :time_settings="time_settings"
-                ></TimeControlPanel>
-            </Modal>
-        </div>
+    <div class="grid grid-cols-2 gap-3 h-full w-full place-items-center">
+        <component
+            :is="typeof_timer(timers[0])"
+            :timer="timers[0]"
+            :key="timers"
+            @click="clock.press(0)"
+        />
+        <component
+            :is="typeof_timer(timers[1])"
+            :timer="timers[1]"
+            :key="timers"
+            @click="clock.press(1)"
+        />
     </div>
 </template>
 
 <script setup>
-import Button from "@/components/ui/Button.vue";
-import Modal from "@/components/ui/Modal.vue";
-import { useTemplateRef } from "vue";
-import TimeControlPanel from "./TimeControlPanel.vue";
+import CountDownTimerVue from "@/components/shared/CountDownTimer.vue";
+import IncrementalTimerVue from "@/components/shared/IncrementalTimer.vue";
+import { CountDownTimer, IncrementalTimer } from "@/timer/timer";
+import { Clock, Event } from "@/timer/clock";
 
-const setting_button = useTemplateRef("setting-button");
+import { ref } from "vue";
 
-const { timer_l, timer_r } = defineProps({
-    timer_l: {
-        type: Object,
-    },
-    timer_r: {
-        type: Object,
+const { clock } = defineProps({
+    clock: {
+        type: Clock,
+        required: true,
     },
 });
+
+const timers = ref(clock.timers);
+
+clock.broadcast.add_listener(Event.SETTING_UPDATE, () => {
+    timers.value = clock.timers;
+});
+
+const typeof_timer = (timer) => {
+    if (timer instanceof CountDownTimer) return CountDownTimerVue;
+    if (timer instanceof IncrementalTimer) return IncrementalTimerVue;
+};
 </script>
+
+<style scoped>
+input {
+    border: 1;
+}
+</style>
