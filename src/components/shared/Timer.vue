@@ -24,22 +24,27 @@
             </div>
             <div
                 :class="[
-                    ' border-1 aspect-square bg-white h-[75%] rounded-full drop-shadow-sm m-auto z-1 transition-all grid grid-rows-3 place-items-center font-thin',
+                    'border-2 aspect-square bg-white h-[75%] rounded-full m-auto z-1 transition-all grid grid-rows-3 place-items-center font-thin',
                     timeout
-                        ? 'border-red-500 border-10 md:border-20'
+                        ? 'border-red-500 border-15 md:border-20'
                         : alarm
                         ? 'border-red-500 border-5'
-                        : 'border-gray-400',
+                        : is_running
+                        ? 'border-gray-600'
+                        : 'border-gray-50',
+                    is_running ? 'drop-shadow-lg' : 'drop-shadow-sm scale-95',
                 ]"
             >
                 <div
                     :class="[
-                        'text-4xl sm:text-7xl md:text-8xl lg:text-9xl transition-all red-200 row-start-2',
+                        'text-4xl sm:text-6xl md:text-8xl lg:text-9xl transition-all red-200 row-start-2',
                         timeout
-                            ? 'text-red-500 sm:font-bold font-bold'
+                            ? 'text-red-500 font-bold sm:font-normal'
                             : alarm
                             ? 'text-red-500 font-normal scale-130'
-                            : 'text-black',
+                            : is_running
+                            ? 'text-black'
+                            : 'text-gray-400',
                     ]"
                 >
                     {{ timeout ? "時間切" : time_string(remaining_time) }}

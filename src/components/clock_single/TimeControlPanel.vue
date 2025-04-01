@@ -1,9 +1,9 @@
 <template>
     <Button
-        class="absolute text-sm lg:text-3xl sm:text-xl left-1/2 top-2 -translate-x-1/2"
+        class="absolute text-2xl lg:text-3xl left-1/2 top-2 -translate-x-1/2"
         ref="setting-button"
         @click="pause()"
-        >{{ clock_status == "running" ? "暫停" : "設定" }}</Button
+        >{{ clock_status == "running" ? "⏸" : "⚙" }}</Button
     >
     <Modal :activator="setting_button" v-model="modal">
         <Divider
@@ -13,12 +13,7 @@
             v-if="clock_status == 'paused'"
             >暫停中</Divider
         >
-        <div
-            :class="[
-                'relative flex flex-col',
-                clock_status == 'paused' ? 'bg-white' : '',
-            ]"
-        >
+        <div :class="['relative flex flex-col', mask ? 'bg-white' : '']">
             <div
                 class="absolute w-full h-full backdrop-blur-xs bg-white/80 text-center content-center text-2xl font-light z-1 border-1 border-gray-200 text-gray-400"
                 v-if="mask"
