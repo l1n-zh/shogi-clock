@@ -1,32 +1,25 @@
 <template>
     <div class="w-full h-full">
-        <text class="block m-[6vh] text-gray-700 text-5xl text-center"
+        <text
+            class="block m-[6vh] text-gray-700 text-4xl sm:text-5xl text-center"
             >科摩多龍棋鐘</text
         >
         <div
-            class="grid grid-cols-3 lg:gap-20 sm:gap-10 gap-3 lg:mx-10 sm:mx-5 mx-3 sm:font-light font-thin"
+            class="flex flex-col mx-25 sm:flex-row lg:gap-20 sm:gap-10 gap-3 lg:mx-10 sm:mx-5 sm:font-light font-thin"
         >
-            <RouterLink to="/single">
-                <div>
-                    <div class="aspect-video content-center">
-                        <ClockSingle></ClockSingle>
-                    </div>
-                    <text class="block w-full text-center text-2xl mt-3"
-                        >單機</text
-                    >
+            <RouterLink to="/single" class="flex-1">
+                <div class="aspect-video content-center">
+                    <ClockSingle></ClockSingle>
                 </div>
+                <text class="block w-full text-center text-2xl mt-3">單機</text>
             </RouterLink>
-            <RouterLink to="/triple">
-                <div>
-                    <div class="aspect-video content-center">
-                        <ClockTriple />
-                    </div>
-                    <text class="block w-full text-center text-2xl mt-3"
-                        >三機</text
-                    >
+            <RouterLink to="/triple" class="flex-1">
+                <div class="aspect-video content-center">
+                    <ClockTriple />
                 </div>
+                <text class="block w-full text-center text-2xl mt-3">三機</text>
             </RouterLink>
-            <div class="opacity-40">
+            <div class="opacity-40 flex-1">
                 <div class="aspect-video content-center">
                     <ClockMulti></ClockMulti>
                 </div>

@@ -1,7 +1,8 @@
 <template>
     <div class="w-full max-w-[100vh] relative aspect-square">
         <div
-            class="box-content border-3 border-gray-100 aspect-square h-full rounded-[50%] flex bg-gray-50 inset-shadow relative"
+            class="box-content border-3 aspect-square h-full rounded-[50%] flex bg-gray-50 inset-shadow relative"
+            :class="is_running ? 'border-gray-200' : 'border-gray-100'"
         >
             <div
                 class="w-full h-full absolute rounded-full z-0"
@@ -28,7 +29,7 @@
                     timeout
                         ? 'border-red-500 border-15 md:border-20'
                         : alarm
-                        ? 'border-red-500 border-5'
+                        ? 'border-red-500 border-5 scale-110'
                         : is_running
                         ? 'border-gray-600'
                         : 'border-gray-50',
@@ -37,17 +38,18 @@
             >
                 <div
                     :class="[
-                        'text-4xl sm:text-6xl md:text-8xl lg:text-9xl transition-all red-200 row-start-2',
+                        'text-4xl sm:text-7xl md:text-8xl lg:text-9xl transition-all red-200 row-start-2',
                         timeout
-                            ? 'text-red-500 font-bold sm:font-normal'
+                            ? 'text-red-500 font-bold sm:font-normal sm:text-6xl'
                             : alarm
                             ? 'text-red-500 font-normal scale-130'
                             : is_running
                             ? 'text-black'
-                            : 'text-gray-400',
+                            : 'text-gray-700',
                     ]"
+                    :key="time_string"
                 >
-                    {{ timeout ? "時間切" : time_string(remaining_time) }}
+                    {{ timeout ? "時間切" : time_string }}
                 </div>
 
                 <div
@@ -62,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import {
     CountDownTimer,
     IncrementalTimer,
@@ -109,10 +111,8 @@ timer.broadcast.add_listener(Event.START, () => {
     is_running.value = true;
 });
 
-/**
- * @param {number} ms
- */
-const time_string = (ms) => {
+const time_string = computed(() => {
+    const ms = remaining_time.value;
     const s = Math.floor(ms / 1000);
     if (s < 60) {
         if (alarm) {
@@ -122,7 +122,7 @@ const time_string = (ms) => {
     }
 
     return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-};
+});
 </script>
 
 <style scoped>

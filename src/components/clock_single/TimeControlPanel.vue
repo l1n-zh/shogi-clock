@@ -1,9 +1,9 @@
 <template>
     <Button
-        class="absolute text-2xl lg:text-3xl left-1/2 top-2 -translate-x-1/2"
+        class="absolute text-2xl lg:text-3xl left-1/2 top-2 -translate-x-1/2 !px-3 text-gray-700"
         ref="setting-button"
         @click="pause()"
-        >{{ clock_status == "running" ? "⏸" : "⚙" }}</Button
+        >{{ clock_status == "running" ? "⏸︎" : "⏱︎" }}</Button
     >
     <Modal :activator="setting_button" v-model="modal">
         <Divider
