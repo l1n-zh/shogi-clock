@@ -1,44 +1,53 @@
 <template>
     <Button
-        class="absolute text-2xl lg:text-3xl left-1/2 top-2 -translate-x-1/2 !px-3 text-gray-700"
-        ref="setting-button"
-        @click="pause()"
+        class="absolute text-3xl lg:text-4xl left-1/2 top-2 -translate-x-1/2 !px-3 text-gray-700"
+        :class="{
+            'z-3': setting_overlay == false,
+        }"
+        shape="circle"
+        @click="clock_status == 'running' ? pause() : adjust_settings()"
         >{{ clock_status == "running" ? "⏸︎" : "⏱︎" }}</Button
     >
-    <Modal :activator="setting_button" v-model="modal">
-        <Divider
-            class="text-md mb-3"
-            line_style="dashed"
-            color="var(--color-gray-400)"
-            v-if="clock_status == 'paused'"
-            >暫停中</Divider
+    <Overlay v-model="paused_overlay">
+        <div
+            class="w-full h-full flex flex-col items-center justify-center gap-3 font-light"
+            @click="start()"
         >
-        <div :class="['relative flex flex-col', mask ? 'bg-white' : '']">
-            <div
-                class="absolute w-full h-full backdrop-blur-xs bg-white/80 text-center content-center text-2xl font-light z-1 border-1 border-gray-200 text-gray-400"
-                v-if="mask"
-                @click="mask = false"
+            <text class="text-3xl text-gray-300 text-center breathing">
+                暫停中
+            </text>
+            <Divider
+                class="w-2/3"
+                line_width="2px"
+                color="var(--color-gray-500)"
             >
-                重設棋鐘
-            </div>
+                <text class="text-6xl text-gray-500 text-center mx-3">
+                    點擊繼續
+                </text>
+            </Divider>
+        </div>
+    </Overlay>
+
+    <Overlay v-model="setting_overlay">
+        <Panel class="relative flex flex-col">
             <TimeSettingPanel
                 :time_settings="time_settings"
                 class="mb-3"
             ></TimeSettingPanel>
             <Button @click="update()"> 更新設定 </Button>
-        </div>
-    </Modal>
+        </Panel>
+    </Overlay>
 </template>
 
 <script setup>
 import TimeSettingPanel from "@/components/shared/TimeSettingPanel.vue";
 import Button from "@/components/ui/Button.vue";
+import Overlay from "@/components/ui/Overlay.vue";
+import Panel from "@/components/ui/Panel.vue";
 import Divider from "@/components/ui/Divider.vue";
-import Modal from "@/components/ui/Modal.vue";
 import { Clock, Event } from "@/timer/clock";
 
-import { useTemplateRef, ref } from "vue";
-const setting_button = useTemplateRef("setting-button");
+import { ref } from "vue";
 
 const { clock, time_settings } = defineProps({
     time_settings: Array,
@@ -46,8 +55,9 @@ const { clock, time_settings } = defineProps({
 });
 
 const clock_status = ref("initial");
-const modal = ref(false);
-const mask = ref(false);
+
+const paused_overlay = ref(false);
+const setting_overlay = ref(false);
 
 clock.broadcast.add_listener(Event.START, () => {
     clock_status.value = "running";
@@ -57,13 +67,44 @@ function pause() {
     if (clock_status.value == "running") {
         clock.pause();
         clock_status.value = "paused";
-        mask.value = true;
+        paused_overlay.value = true;
     }
 }
 
 function update() {
     clock.apply_settings(time_settings);
+    paused_overlay.value = false;
+    setting_overlay.value = false;
     clock_status.value = "initial";
-    modal.value = false;
+}
+
+function start() {
+    clock.start();
+    paused_overlay.value = false;
+    setting_overlay.value = false;
+    clock_status.value = "running";
+}
+
+function adjust_settings() {
+    setting_overlay.value = true;
 }
 </script>
+
+<style scoped>
+@keyframes breathing {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.3;
+    }
+    60% {
+        opacity: 1;
+    }
+}
+
+.breathing {
+    animation: breathing 3s linear infinite;
+}
+</style>
