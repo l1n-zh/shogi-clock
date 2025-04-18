@@ -1,10 +1,12 @@
 <template>
-    <TimeControlPanel
-        :time_settings="time_settings"
-        :clock="clock"
-    ></TimeControlPanel>
-    <div class="h-[100vh]">
-        <ClockVue :clock="clock"></ClockVue>
+    <div>
+        <TimeControlPanel
+            :time_settings="time_settings"
+            :clock="clock"
+        ></TimeControlPanel>
+        <div class="h-[100vh]">
+            <ClockVue :clock="clock"></ClockVue>
+        </div>
     </div>
 </template>
 
