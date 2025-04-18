@@ -3,7 +3,8 @@
         class="flex items-center content-center"
         :style="{
             color: props.color,
-            '--border-style': props.line_style,
+            '--line-style': props.line_style,
+            '--line-width': props.line_width,
         }"
     >
         <span class="text px-[.5em] font-light"><slot></slot></span>
@@ -12,6 +13,10 @@
 
 <script setup>
 const props = defineProps({
+    line_width: {
+        type: String,
+        default: "1px",
+    },
     line_style: {
         type: String,
         default: "solid",
@@ -28,6 +33,7 @@ div::before,
 div::after {
     content: "";
     flex: 1;
-    border-top: 1px var(--border-style);
+    border-top-width: var(--line-width);
+    border-top-style: var(--line-style);
 }
 </style>
